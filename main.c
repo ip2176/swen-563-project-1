@@ -2,45 +2,95 @@
 #include "SysClock.h"
 #include "LED.h"
 #include "UART.h"
+#include "TIMER.h"  // Put timer capture stuff in here?
 
 #include <string.h>
 #include <stdio.h>
 
-char RxComByte = 0;
-uint8_t buffer[BufferSize];
-char str[] = "Give Red LED control input (Y = On, N = off):\r\n";
+#define MEASUREMENTS 1000      // Take one thousand measurments
+#define BUCKETS 101            // One bucket for each millisecon measurement on histograsm
 
-int main(void){
-	//char rxByte;
-	int		a ;
-	int		n ;
-	int		i ;
-	float b;
-	
-	System_Clock_Init(); // Switch System Clock = 80 MHz
-	LED_Init();
-	UART2_Init();
-		
-	while (1){
-		n = sprintf((char *)buffer, "a = %d\t", a);
-		n += sprintf((char *)buffer + n, "b = %f\r\n", b);
-		USART_Write(USART2, buffer, n);		
-		a = a + 1;
-		b = (float)a/100;
-		// now spin for a while to slow it down
-		for (i = 0; i < 4000000; i++)
-			;
-		
-		USART_Write(USART2, (uint8_t *)str, strlen(str));	
-		uint8_t rxByte = USART_Read(USART2);
-		if (rxByte == 'N' || rxByte == 'n'){
-			Red_LED_Off();
-			USART_Write(USART2, (uint8_t *)"LED is Off\r\n\r\n", 16);
-		}
-		else if (rxByte == 'Y' || rxByte == 'y'){
-			Red_LED_On();
-			USART_Write(USART2, (uint8_t *)"LED is on\r\n\r\n", 15);
-		}
-	}
+uint8_t output_buffer[200];             // Output buffer array
+uint16_t measurement_results[BUCKETS];  // Area for measurements
+
+void POST(){
 }
 
+void POST_failed(){
+}
+
+void take_measurements(){
+}
+
+void print_results(){
+}
+
+void get_user_input(){
+}
+
+void clear_results(){
+
+  // Clear out the measurement results
+  for(int i = 0; i < BUCKETS; i++){
+    measurement_results[i] = 0;
+  }
+}
+
+char check_for_continuation() {
+  char user_input;
+  USART_Write(USART2, (uint8_t *)"Take more measurements?\r\n", 25);
+
+  user_input = USART_Read(USART2);
+  
+  // If the user does not want to continue, break the loop
+  if (user_input == 'N' || user_input == 'n'){
+    USART_Write(USART2, (uint8_t *)"Exit!!!\r\n", 9);
+  }
+  return user_input;
+}
+
+int main(void){
+
+  char user_input;
+
+  // Initialize!
+  System_Clock_Init();
+  LED_Init();
+  UART2_Init();
+
+  /* Timer stuff ?
+  RCC->APB1ENR1 |= RCC_APB1ENR1_TIM2EN;  //enable?
+  // configure timer
+  TIM2->PSC ????
+  TIM2->EGR |= TIM_EGR_UG;
+  TIM2->CCER ???
+  TIM2->CCMR1 |= 0x1;  //enable?
+  TIM2->CCER |= 0x1;   //enable?
+  */
+
+  // Make sure our hardware config is correct
+  POST();
+
+  while(1){
+
+    // Get information from the user
+    get_user_input();
+
+    // Measure rising edges
+    take_measurements();
+
+    // Print out the results of every measurement
+    print_results();
+
+    // ask user if they want to go again
+    user_input = check_for_continuation();
+
+    // If the user wants to exit, break the loop
+    if (user_input == 'N' || user_input == 'n'){
+      break;
+    }
+
+    // If the user didn't break out, clear the results for the next round
+    clear_results();
+  }
+}
