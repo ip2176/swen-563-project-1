@@ -147,4 +147,3 @@ void USART_IRQHandler(USART_TypeDef * USARTx, uint8_t *buffer, uint32_t * pRx_co
 		while(1);     
 	}	
 }
-
