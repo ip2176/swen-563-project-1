@@ -1,12 +1,28 @@
+/*
+	This file contains all fo the constant definitions used for this project.  They are
+	consolidated for easy reading and access
+*/
+
+// General definitons used in main.c
 #define MEASUREMENTS (1000)      												// Take one thousand measurments
 #define BUCKETS (101)            												// One bucket for each millisecond measurement on histograsm
 #define ONE_HUNDRED_MILLISECONDS	(100000)							// Used during the post routine to detect if the board is at least seeing one pulse
 #define OUTPUT_BUFFER_SIZE (1000)												// Arbitrary bad code, I know
+#define SUCCESS (1)																			// Used for some int returning functions
+#define FAILURE (0)																			// Used for some int returning functions
+#define VALID_YES_NO ("YyNn")														// Used for input checking
+#define LOWEST_LOWER_BOUND (50)													// Used for input checking the lower bound
+#define HIGHEST_LOWER_BOUND (9950)											// Used for input checking the lower bound
+#define LOWER_BOUND_BUFFER_SIZE (4)											// Used for setting the lower bound buffer size
+#define ASCII_NEWLINE	(13)															// Ugh, have to check for newlines
+#define REAL_TIME_BUFFER_SIZE (1)												// Used to output the users input in real time
+#define NULL ('\0')																			// The null terminator
+#define CARRIAGE_RETURN_NEWLINE ("\r\n")								// Used in strings in the program
 
 // General use 
 #define CLEAR	 (~(0xFFFFFFFF))													// Constant to clear a 32 bit register
 #define ENABLE	(0x1)																		// Enable constant
-#define DISABLE (0x0)																		// DIsable constant
+#define DISABLE (0x0)																		// Disable constant
 
 // Defines for the TIM2 timer to make the constants more human readbale
 #define TIMER_2_ENABLE (RCC_APB1ENR1_TIM2EN) 						// This allow us to enable the TIM2 timer

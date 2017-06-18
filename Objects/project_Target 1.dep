@@ -1,5 +1,5 @@
 Dependencies for Project 'project', Target 'Target 1': (DO NOT MODIFY !)
-F (.\main.c)(0x5945ADCC)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\Drivers\CMSIS\Include --c99 -D__MICROLIB-IC:\Users\Ian\Documents\School\2017_Summer\SWEN-563\project1\RTE-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\1.4.0\Device\Include-D__UVISION_VERSION="521" -D_RTE_ -DSTM32L476xx-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\main.c)(0x5945E579)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\Drivers\CMSIS\Include --c99 -D__MICROLIB-IC:\Users\Ian\Documents\School\2017_Summer\SWEN-563\project1\RTE-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\1.4.0\Device\Include-D__UVISION_VERSION="521" -D_RTE_ -DSTM32L476xx-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (stm32l476xx.h)(0x5939F895)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cm4.h)(0x56265FCC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x574EE6E6)
@@ -11,11 +11,12 @@ I (C:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\1.4.0\Device\Include\system_stm32l4xx.
 I (SysClock.h)(0x5939F895)
 I (LED.h)(0x5939F895)
 I (UART.h)(0x5939F895)
-I (TIMER.h)(0x594595E8)
-I (CONSTANTS.h)(0x5945AB4A)
+I (TIMER.h)(0x5945C339)
+I (CONSTANTS.h)(0x5945E57A)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x574EE6E6)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x574EE6E6)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x574EE6E6)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x574EE6E6)
 F (.\startup_stm32l476xx.s)(0x5939F895)(--cpu Cortex-M4.fp --pd "__EVAL SETA 1" -g --apcs=interwork -IC:\Users\Ian\Documents\School\2017_Summer\SWEN-563\project1\RTE-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\1.4.0\Device\Include--pd "__UVISION_VERSION SETA 521" --pd "_RTE_ SETA 1" --pd "STM32L476xx SETA 1"--list .\listings\startup_stm32l476xx.lst --xref -o .\objects\startup_stm32l476xx.o --depend .\objects\startup_stm32l476xx.d)
 F (.\stm32l476xx.h)(0x5939F895)()
 F (.\LED.c)(0x5939F895)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\Drivers\CMSIS\Include --c99 -D__MICROLIB-IC:\Users\Ian\Documents\School\2017_Summer\SWEN-563\project1\RTE-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\1.4.0\Device\Include-D__UVISION_VERSION="521" -D_RTE_ -DSTM32L476xx-o .\objects\led.o --omf_browse .\objects\led.crf --depend .\objects\led.d)
@@ -49,7 +50,7 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cmFunc.h)(0x56264C10)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cmSimd.h)(0x56264C10)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\1.4.0\Device\Include\system_stm32l4xx.h)(0x586D1952)
 F (.\pins.txt)(0x5939F895)()
-F (.\TIMER.c)(0x594595A6)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\Drivers\CMSIS\Include --c99 -D__MICROLIB-IC:\Users\Ian\Documents\School\2017_Summer\SWEN-563\project1\RTE-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\1.4.0\Device\Include-D__UVISION_VERSION="521" -D_RTE_ -DSTM32L476xx-o .\objects\timer.o --omf_browse .\objects\timer.crf --depend .\objects\timer.d)
+F (.\TIMER.c)(0x5945C339)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\Drivers\CMSIS\Include --c99 -D__MICROLIB-IC:\Users\Ian\Documents\School\2017_Summer\SWEN-563\project1\RTE-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\1.4.0\Device\Include-D__UVISION_VERSION="521" -D_RTE_ -DSTM32L476xx-o .\objects\timer.o --omf_browse .\objects\timer.crf --depend .\objects\timer.d)
 I (stm32l476xx.h)(0x5939F895)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cm4.h)(0x56265FCC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x574EE6E6)
@@ -58,4 +59,4 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\cmsis_armcc.h)(0x56264C10)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cmFunc.h)(0x56264C10)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cmSimd.h)(0x56264C10)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\1.4.0\Device\Include\system_stm32l4xx.h)(0x586D1952)
-I (CONSTANTS.h)(0x5945AB4A)
+I (CONSTANTS.h)(0x5945E57A)
