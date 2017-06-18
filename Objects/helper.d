@@ -1,5 +1,17 @@
 .\objects\helper.o: Helper.c
+.\objects\helper.o: Helper.h
 .\objects\helper.o: USART_Helper.h
+.\objects\helper.o: UART.h
+.\objects\helper.o: stm32l476xx.h
+.\objects\helper.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cm4.h
+.\objects\helper.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\helper.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cmInstr.h
+.\objects\helper.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\cmsis_armcc.h
+.\objects\helper.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cmFunc.h
+.\objects\helper.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cmSimd.h
+.\objects\helper.o: C:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\1.4.0\Device\Include\system_stm32l4xx.h
 .\objects\helper.o: CONSTANTS.h
 .\objects\helper.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\helper.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\helper.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\objects\helper.o: CONSTANTS.h

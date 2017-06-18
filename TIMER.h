@@ -3,6 +3,7 @@
 */
 
 #include "stm32l476xx.h"
+#include "CONSTANTS.h"
 
 /*
   Helper function to take care of initializing the timer registers.

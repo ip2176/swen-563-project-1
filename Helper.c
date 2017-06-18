@@ -2,11 +2,7 @@
   Helper function definitions
 */
 
-#include "USART_Helper.h"
-#include "CONSTANTS.h"
-
-#include <string.h>
-#include <stdio.h>
+#include "Helper.h"
 
 /*
   Check the input string and see if we have a valid character in it.

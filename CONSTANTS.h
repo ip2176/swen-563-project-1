@@ -22,7 +22,6 @@
 #define NO_NEWLINE (0)                                   // Tellks the real time printer not to print a newline
 #define REAL_TIME_BUFFER_SIZE (1)                        // Used to output the users input in real time
 #define REAL_TIME_BUFFER_START (0)                       // Used for printing out real time data as its entered in
-#define NULL ('\0')                                      // The null terminator
 #define CARRIAGE_RETURN_NEWLINE ("\r\n")                 // Used in strings in the program
 #define DASHES ("--------------------------------------------------------------------------------") // Used to make printing look nice
 

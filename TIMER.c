@@ -2,8 +2,7 @@
   The timer file is used to encapsulate the functions that relate to using the TIM2 register
 */
 
-#include "stm32l476xx.h"
-#include "CONSTANTS.h"
+#include "TIMER.h"
 
 /*
   Helper function to take care of initializing the timer registers.

@@ -2,14 +2,7 @@
   This file defines helper print functions
 */
 
-#include "UART.h"
-#include "TIMER.h"
-#include "CONSTANTS.h"
-
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <stdlib.h>
+#include "USART_Helper.h"
 
 /*
   Helper function to handle the usart write function syntax.  Automatically adds

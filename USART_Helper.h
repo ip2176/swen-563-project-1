@@ -2,6 +2,13 @@
   Header file for the USART helper functions
 */
 
+#include "UART.h"
+#include "CONSTANTS.h"
+
+#include <string.h>
+#include <stdio.h>
+#include <stdarg.h>
+
 /*
   Helper function to handle the usart write function syntax.  Automatically adds
   the newlines to the string so we don't have to do that later

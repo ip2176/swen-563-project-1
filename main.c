@@ -1,16 +1,10 @@
-#include "stm32l476xx.h"
 #include "SysClock.h"
 #include "LED.h"
-#include "UART.h"
 #include "TIMER.h"
-#include "CONSTANTS.h"
 #include "GPIO.h"
 #include "USART_Helper.h"
 #include "Helper.h"
 
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
 #include <stdlib.h>
 
 uint16_t measurement_results[BUCKETS];  // Area for measurements

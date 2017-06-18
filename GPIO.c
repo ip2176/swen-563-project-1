@@ -2,8 +2,7 @@
   Function definitions for the GPIO functions
 */
 
-#include "stm32l476xx.h"
-#include "CONSTANTS.h"
+#include "GPIO.h"
 
 /*
   Function to set the necessary bits in all of the GPIO registers to

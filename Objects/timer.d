@@ -1,4 +1,5 @@
 .\objects\timer.o: TIMER.c
+.\objects\timer.o: TIMER.h
 .\objects\timer.o: stm32l476xx.h
 .\objects\timer.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cm4.h
 .\objects\timer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h

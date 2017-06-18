@@ -2,6 +2,11 @@
   Header file for helper function definitions
 */
 
+#include "USART_Helper.h"
+#include "CONSTANTS.h"
+
+#include <string.h>
+
 /*
   Check the input string and see if we have a valid character in it.
   Used to check the user input
