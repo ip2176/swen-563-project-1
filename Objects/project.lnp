@@ -5,6 +5,9 @@
 ".\objects\sysclock.o"
 ".\objects\uart.o"
 ".\objects\timer.o"
+".\objects\usart_helper.o"
+".\objects\helper.o"
+".\objects\gpio.o"
 --strict --scatter ".\Objects\project.sct"
 --diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

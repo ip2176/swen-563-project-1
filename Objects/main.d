@@ -12,6 +12,9 @@
 .\objects\main.o: UART.h
 .\objects\main.o: TIMER.h
 .\objects\main.o: CONSTANTS.h
+.\objects\main.o: GPIO.h
+.\objects\main.o: USART_Helper.h
+.\objects\main.o: Helper.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h

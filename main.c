@@ -4,6 +4,10 @@
 #include "UART.h"
 #include "TIMER.h"
 #include "CONSTANTS.h"
+#include "GPIO.h"
+#include "USART_Helper.h"
+#include "Helper.h"
+
 
 #include <string.h>
 #include <stdio.h>
@@ -16,93 +20,6 @@ int lower_bound = 950;									// The lower bound default (in milliseconds)
 
 // This define is kept here because its simpler for execution
 #define UPPER_BOUND (lower_bound + 100)
-
-/*
-	Helper function to handle the usart write function syntax.  Automatically adds
-	the newlines to the string so we don't have to do that later
-	
-	Input: This function takes a string (character array pointer)
-*/
-void usart_write_simple(char *message){
-	char buffer[strlen(message) + strlen(CARRIAGE_RETURN_NEWLINE)];
-	strcpy(buffer, message);
-	strcat(buffer, CARRIAGE_RETURN_NEWLINE);
-	USART_Write(USART2, (uint8_t *)buffer, strlen(buffer));
-}
-
-/*
-	Helper function to write out data values without having to worry
-	about all the fiddly bits for int->string conversion.  Allows
-	for the familiar sprintf format for accepting a variable number
-	of arguments
-
-	Input: This function takes a string (character array pointer) and 
-				 any number of format data numbers after that, such as
-				 function("Example string %d, %d", num1, num2)
-*/
-void usart_write_data_string(char *message, ...){
-
-	// Use a variable size call to the function
-	va_list data_points;
-	va_start(data_points, message);
-
-	// I know this is bad form but I have no idea how to make a variable size function
-	// and compute a variable size list.  I used this just to make my life easier.  It works
-	char buffer[OUTPUT_BUFFER_SIZE];
-	vsprintf(buffer, message, data_points);
-	va_end(data_points);
-	usart_write_simple(buffer);
-}
-
-/*
-	Helper function to handle the usart read function syntax
-
-	Output: Returns the output of the USART_Read function
-*/
-char usart_read_simple(){
-	return USART_Read(USART2);
-}
-
-/*
-	Check the input string and see if we have a valid character in it.
-	Used to check the user input
-
-	Input: input - The string to check if it is in valid characters
-				 valid_characters - A string of valid characters input should
-                            be checked against
-  Output: An integer for success (1) if the input string contained any 
-					valid characters or failure (0) if it didn't
-*/
-int check_for_valid_input(char *input, char *valid_characters){
-	if(!strpbrk(input, valid_characters)){
-		return FAILURE;
-	}
-	return SUCCESS;
-}
-
-/*
-	Helper function to keep the board form doing anythiung else until
-	reset is pushed
-*/
-void exit_program(){
-	usart_write_simple("Exiting the program");
-	while(1);
-}
-
-/*
-	Function to set the necessary bits in all of the GPIO registers to
-	enable the PA0 pin, the GPIO clock, and tie the PAO pin to the TIM2
-	timer
-*/
-void gpio_init(){
-	// enable the peripheral clock of GPIO Port
-	GPIO_CLOCK |= GPIO_CLOCK_ENABLE;
-
-	// Connect the TIM2 timer to the GPIO Pin A0
-	GPIO_A_PIN &= CLEAR; 															 												// Clear the register
-	GPIO_A_PIN |= GPIO_ALTERNATE_FUNCTION_MODE;	       												// Put PA0 in alternate function mode
-	GPIO_PA0_ALTERNATE_FUNCTION |= GPIO_PA0_ENABLE_ALTERNATE_FUNCTION_TIM2;		// Tie PA0 to to TIM2
-}
 
 /*
 	This function handles getting the user input when the post fails and
@@ -119,15 +36,18 @@ uint32_t post_failed(){
 
 	// Read the user input
   user_input = usart_read_simple();
+	usart_real_time_write(user_input, PRINT_NEWLINE);
 
 	// Make sure we have expected input
-	while(user_input != 'Y' && user_input != 'y' && user_input != 'N' && user_input != 'n'){
+	while(!check_for_valid_input(&user_input, VALID_YES_NO)){
 		usart_write_simple("Unrecognized input, please use Y or N");
 		user_input = usart_read_simple();
+		
+		usart_real_time_write(user_input, PRINT_NEWLINE);
 	}
 
   // If the user does not want to continue, break the loop
-  if (user_input == 'N' || user_input == 'n'){
+  if(check_for_valid_input(&user_input, VALID_NO)){
 		exit_program();
   }
 
@@ -182,20 +102,6 @@ void post(){
 	stop_capture();
 }
 
-/* 
-	This function actually measures the timing of each of the pulsesd and puts
-	the data into the results array
-*/
-void take_measurements(){
-}
-
-/*
-	This function takes the results in the results array and prints them to the USART
-	window
-*/
-void print_results(){
-}
-
 /*
 	This function handles setting the upper and lower bounds for measuring pulses.
 	The upper bound ius set implicitly int he # define, while the lower bound is set
@@ -209,6 +115,8 @@ void get_user_input(){
 	// Start gathering user input
 	usart_write_data_string(change_user_input_message, lower_bound);
 	user_input = usart_read_simple();
+
+	usart_real_time_write(user_input, PRINT_NEWLINE);
 
 	// Make sure the user said something intelligible
 	while(!check_for_valid_input(&user_input, VALID_YES_NO)){
@@ -224,14 +132,16 @@ void get_user_input(){
 		// Keep asking
 		usart_write_data_string(change_user_input_message, lower_bound);
 		user_input = usart_read_simple();
+
+		// Print out what they put in
+		usart_real_time_write(user_input, PRINT_NEWLINE);
 	}
 
 	// This is only if the user wants to set a new value, otherwise it defaults to 950
-	if(check_for_valid_input(&user_input, "Yy")){
+	if(check_for_valid_input(&user_input, VALID_YES)){
 		
-		int data_valid, data_start = 0;
+		int data_valid = 0;
 		char data_input;
-		char write_buffer[REAL_TIME_BUFFER_SIZE] = {NULL};
 		char lower_bound_buffer[LOWER_BOUND_BUFFER_SIZE + 1] = {NULL, NULL, NULL, NULL, NULL};
 
 		// Start capturing data
@@ -248,15 +158,7 @@ void get_user_input(){
 
 				lower_bound_buffer[input_number] = data_input;
 
-				// Copy the data into a real time buffer for USART output
-				write_buffer[data_start] = data_input;
-
-				// Use a regular write here so we don't get newlines, let the user know
-				// what they are typing
-				USART_Write(USART2, (uint8_t *)write_buffer, sizeof(write_buffer));
-
-				// Reset the write buffer
-				memset(write_buffer, NULL, sizeof(write_buffer));
+				usart_real_time_write(data_input, NO_NEWLINE);
 
 				// Move on to the next character
 				input_number++;
@@ -288,13 +190,77 @@ void get_user_input(){
 	}
 }
 
-/*
-	Helper function to clear out the measurement results
+/* 
+	This function actually measures the timing of each of the pulsesd and puts
+	the data into the results array
 */
-void clear_results(){
-  for(int i = 0; i < BUCKETS; i++){
-    measurement_results[i] = 0;
-  }
+void take_measurements(){
+	int number_of_measurements =0;
+	int first_measurement = 1;
+	uint32_t previous_measurement, current_measurement, difference_measurement = 0;
+	usart_write_simple("Taking measurements...");
+	
+	start_capture();
+
+	// Start capturing data while we have less than 1000 measurements
+	while(number_of_measurements <= MEASUREMENTS){
+
+		// We got a measurement!
+		if(measurement_detected()){
+
+			// We need to get two measurements to get a data value
+			if(first_measurement){
+				previous_measurement = get_current_measurement();
+				first_measurement = 0;
+			}
+
+			// We have two measurements to get a difference
+			else {
+				current_measurement = get_current_measurement();
+				difference_measurement = current_measurement - previous_measurement;
+				previous_measurement = current_measurement;
+
+				// Record the measurement if its within bounds
+				if(difference_measurement <= UPPER_BOUND && difference_measurement >= lower_bound){
+					measurement_results[difference_measurement - lower_bound]++;
+				}
+
+				// Increment the number of measurements we took.  This means the output wont always be 1000, but it
+				// saves us from an infitie loop
+				number_of_measurements++;
+			}
+		}
+	}
+	stop_capture();
+}
+
+/*
+	This function takes the results in the results array and prints them to the USART
+	window
+*/
+void print_results(){
+
+	// Use a copy because we don't want to increment it.  It will throw off the print
+	// if the user decides to continue
+	int lower_bound_copy = lower_bound;
+
+	usart_write_simple(DASHES);
+	usart_write_simple("Results from testing:");
+
+	// Print out each result that we actually have, skip those we dont
+	for(int x = 0; x < BUCKETS; x++){
+
+		// Increment the lower bound up, use this in the histogram data
+		lower_bound_copy++;
+
+		// Check if the measurement was not zero
+		if(measurement_results[x] != NO_RESULT){
+
+			// Print our histogram data finally :)
+			usart_write_data_string("%4d ms: %d measurements", lower_bound_copy, measurement_results[x]);
+		}
+	}
+	usart_write_simple(DASHES);
 }
 
 /*
@@ -305,11 +271,20 @@ void check_for_continuation() {
   usart_write_simple("Take more measurements?");
 
   user_input = usart_read_simple();
+	
+	usart_real_time_write(user_input, PRINT_NEWLINE);
   
   // If the user does not want to continue, break the loop
-  if (user_input == 'N' || user_input == 'n'){
+  if(check_for_valid_input(&user_input, VALID_NO)){
     exit_program();
   }
+}
+
+/*
+	Clear out the measurement results
+*/
+void clear_results(){
+	memset(measurement_results, 0, sizeof(measurement_results));
 }
 
 /*

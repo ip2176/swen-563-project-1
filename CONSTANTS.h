@@ -10,14 +10,21 @@
 #define OUTPUT_BUFFER_SIZE (1000)												// Arbitrary bad code, I know
 #define SUCCESS (1)																			// Used for some int returning functions
 #define FAILURE (0)																			// Used for some int returning functions
+#define NO_RESULT (0)																		// Used in histogram printing
 #define VALID_YES_NO ("YyNn")														// Used for input checking
+#define VALID_YES	("Yy")																// Used to check if the user said yes to a prompt
+#define VALID_NO	("Nn")																// Used to check if the user said yes to a prompt
 #define LOWEST_LOWER_BOUND (50)													// Used for input checking the lower bound
 #define HIGHEST_LOWER_BOUND (9950)											// Used for input checking the lower bound
 #define LOWER_BOUND_BUFFER_SIZE (4)											// Used for setting the lower bound buffer size
 #define ASCII_NEWLINE	(13)															// Ugh, have to check for newlines
+#define PRINT_NEWLINE (1)																// Tells the real time printer to print a newline
+#define NO_NEWLINE (0)																	// Tellks the real time printer not to print a newline
 #define REAL_TIME_BUFFER_SIZE (1)												// Used to output the users input in real time
+#define REAL_TIME_BUFFER_START (0)											// Used for printing out real time data as its entered in
 #define NULL ('\0')																			// The null terminator
 #define CARRIAGE_RETURN_NEWLINE ("\r\n")								// Used in strings in the program
+#define DASHES ("--------------------------------------------------------------------------------") // Used to make printing look nice
 
 // General use 
 #define CLEAR	 (~(0xFFFFFFFF))													// Constant to clear a 32 bit register

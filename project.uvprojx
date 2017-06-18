@@ -419,6 +419,21 @@
               <FileType>1</FileType>
               <FilePath>.\TIMER.c</FilePath>
             </File>
+            <File>
+              <FileName>USART_Helper.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\USART_Helper.c</FilePath>
+            </File>
+            <File>
+              <FileName>Helper.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Helper.c</FilePath>
+            </File>
+            <File>
+              <FileName>GPIO.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\GPIO.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
