@@ -123,10 +123,10 @@ void get_user_input(){
 
 		// Handle if the user input a newline, makes the output look weird if they do
 		if(user_input == ASCII_NEWLINE){
-			usart_write_simple("Invalid input (\\n or \\r) please try again");
+			usart_write_simple("Invalid input (\\n or \\r) please try again (Y or N)");
 		}
 		else {
-			usart_write_data_string("Invalid input (%c) please try again", user_input);
+			usart_write_data_string("Invalid input (%c) please try again (Y or N)", user_input);
 		}
 		
 		// Keep asking
@@ -268,7 +268,7 @@ void print_results(){
 */
 void check_for_continuation() {
   char user_input;
-  usart_write_simple("Take more measurements?");
+  usart_write_simple("Take more measurements? (Y or N)");
 
   user_input = usart_read_simple();
 	
