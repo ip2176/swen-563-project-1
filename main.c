@@ -2,7 +2,6 @@
 #include "LED.h"
 #include "TIMER.h"
 #include "GPIO.h"
-#include "USART_Helper.h"
 #include "Helper.h"
 
 #include <stdlib.h>
