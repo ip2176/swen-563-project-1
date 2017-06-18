@@ -232,7 +232,11 @@ void print_results(){
   int lower_bound_copy = lower_bound;
 
   usart_write_simple(DASHES);
-  usart_write_simple("Results from testing:");
+  
+	usart_write_data_string("Lower bound: %d ms", lower_bound);
+	usart_write_data_string("Upper bound: %d ms", UPPER_BOUND);
+	usart_write_simple("Results from testing:");
+	usart_write_simple(DASHES);
 
   // Print out each result that we actually have, skip those we dont
   for(int x = 0; x < BUCKETS; x++){
